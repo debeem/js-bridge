@@ -2,7 +2,5 @@ jdk:
   - openjdk17
 before_install:
   - cd android
-  - ls -la  # 列出当前目录内容
-  - pwd     # 显示当前工作目录
 install:
-  - ./gradlew :js-bridge-npm:clean :js-bridge-npm:build :js-bridge-npm:publishToMavenLocal
+  - ./gradlew clean build publishToMavenLocal --info --stacktrace
