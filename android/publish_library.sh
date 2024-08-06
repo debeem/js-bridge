@@ -56,6 +56,6 @@ git commit -m "Bump version to $NEW_VERSION"
 
 # 创建tag并推送
 git tag -a "$NEW_VERSION" -m "Version $NEW_VERSION"
-git push origin master --tags
+git push origin main --tags
 
 echo "Library published to JitPack. Version: $NEW_VERSION"
