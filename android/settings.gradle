@@ -1,0 +1,22 @@
+pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+        // 发布依赖
+        maven { url "https://jitpack.io" }
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        // 使用依赖
+        maven { url "https://jitpack.io" }
+    }
+}
+
+rootProject.name = "js-bridge-npm"
+include ':js-bridge-npm'
+include ':sample'
