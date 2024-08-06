@@ -2,5 +2,7 @@ jdk:
   - openjdk17
 before_install:
   - cd android
+  - ls -la  # 列出当前目录内容
+  - pwd     # 显示当前工作目录
 install:
-  - ./gradlew build publishToMavenLocal
+  - gradle build publishToMavenLocal --info  # 添加 --info 以获取更多日志信息
