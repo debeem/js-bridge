@@ -1,6 +1,6 @@
 # Android JS-Bridge-NPM SDK
 
-[![](https://jitpack.io/v/jinmiao/js-bridge-npm.svg)](https://jitpack.io/#jinmiao/js-bridge-npm)
+[![](https://jitpack.io/v/debeem/js-bridge.svg)](https://jitpack.io/#debeem/js-bridge)
 
 ## 目录
 

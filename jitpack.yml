@@ -1,7 +1,7 @@
 jdk:
   - openjdk17
 before_install:
-  - cd android
+  - cd android/js-bridge-npm
   - ls -la  # 列出当前目录内容
   - pwd     # 显示当前工作目录
 install:
