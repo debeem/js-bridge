@@ -41,11 +41,7 @@ cd "$SDK_DIR" || exit 1
 # 更新 build.gradle 文件
 BUILD_GRADLE="$SDK_DIR/gradle.properties"
 if [ -f "$BUILD_GRADLE" ]; then
-    echo "
-    android.useAndroidX=true
-    android.enableJetifier=true
-    SDK_VERSION=$NEW_VERSION
-    " > "$BUILD_GRADLE"
+    echo "SDK_VERSION=$NEW_VERSION" > "$BUILD_GRADLE"
     echo "Updated version in $BUILD_GRADLE"
 else
     echo "Warning: build.gradle not found at $BUILD_GRADLE. Make sure you update the version manually."
@@ -58,7 +54,7 @@ cd - || exit 1
 git add .
 git commit -m "Bump version to $NEW_VERSION"
 
-# 创建tag并推送
+## 创建tag并推送
 git tag -a "$NEW_VERSION" -m "Version $NEW_VERSION"
 git push origin main --tags
 
