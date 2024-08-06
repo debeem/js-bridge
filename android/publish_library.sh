@@ -41,7 +41,11 @@ cd "$SDK_DIR" || exit 1
 # 更新 build.gradle 文件
 BUILD_GRADLE="$SDK_DIR/gradle.properties"
 if [ -f "$BUILD_GRADLE" ]; then
-    echo "SDK_VERSION=$NEW_VERSION" > "$BUILD_GRADLE"
+    echo "
+    android.useAndroidX=true
+    android.enableJetifier=true
+    SDK_VERSION=$NEW_VERSION
+    " > "$BUILD_GRADLE"
     echo "Updated version in $BUILD_GRADLE"
 else
     echo "Warning: build.gradle not found at $BUILD_GRADLE. Make sure you update the version manually."
