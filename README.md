@@ -11,11 +11,11 @@
 在项目根目录的 build.gradle 文件中添加 jitpack 依赖：
 ```kotlin
 dependencyResolutionManagement {
-	repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-	repositories {
-		mavenCentral()
-		maven { url 'https://jitpack.io' } // Add this line
-	}
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        mavenCentral()
+        maven { url 'https://jitpack.io' }      // Add this line
+    }
 }
 ```
 

@@ -351,6 +351,9 @@ npx webpack
 
 ```shell
 ./publish_library.sh -v 1.0.0-alpha.2
+
+// 在根目录下执行
+./android/publish_library.sh -v 1.0.0-alpha.15
 ```
 ><b>版本控制和策略</b>  
 > alpha（1.0.0-alpha.1）: 早期内测版本，功能可能不完整  
