@@ -45,7 +45,7 @@ dependencyResolutionManagement {
 
 ```gradle
 dependencies {
-    implementation 'com.github.jinmiao:js-bridge-npm:1.0.0-alpha.5'
+    implementation 'com.github.debeem:js-bridge:1.0.0-alpha.15'
 }
 ```
 
