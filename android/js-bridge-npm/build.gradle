@@ -48,8 +48,8 @@ afterEvaluate {
             // Creates a Maven publication called "release".
             release(MavenPublication) {
                 from components.release
-                groupId = 'com.github.jinmiao'
-                artifactId = 'js-bridge-npm'
+                groupId = 'com.github.debeem'
+                artifactId = 'js-bridge'
                 version = project.SDK_VERSION
             }
         }

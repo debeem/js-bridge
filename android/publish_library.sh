@@ -47,6 +47,9 @@ else
     echo "Warning: build.gradle not found at $BUILD_GRADLE. Make sure you update the version manually."
 fi
 
+# 切回原始目录
+cd - || exit 1
+
 # 提交变更
 git add .
 git commit -m "Bump version to $NEW_VERSION"
@@ -56,6 +59,3 @@ git tag -a "$NEW_VERSION" -m "Version $NEW_VERSION"
 git push origin master --tags
 
 echo "Library published to JitPack. Version: $NEW_VERSION"
-
-# 切回原始目录
-cd - || exit 1
