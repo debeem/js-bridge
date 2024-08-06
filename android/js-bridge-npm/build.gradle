@@ -49,7 +49,7 @@ afterEvaluate {
             release(MavenPublication) {
                 from components.release
                 groupId = 'com.github.debeem'
-                artifactId = 'js-bridge'
+                artifactId = 'js-bridge-npm'
                 version = project.SDK_VERSION
             }
         }
