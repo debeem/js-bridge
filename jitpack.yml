@@ -5,4 +5,4 @@ before_install:
   - ls -la  # 列出当前目录内容
   - pwd     # 显示当前工作目录
 install:
-  - gradle build publishToMavenLocal --info  # 添加 --info 以获取更多日志信息
+  - ./gradlew clean build publishToMavenLocal --info --stacktrace
