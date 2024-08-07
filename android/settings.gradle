@@ -17,6 +17,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "js-bridge-npm"
-include ':js-bridge-npm'
-include ':sample'
+rootProject.name = "android"
+include ':js-bridge'
+include ':sample-debeem-wallet'

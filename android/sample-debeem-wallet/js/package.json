@@ -1,0 +1,24 @@
+{
+  "name": "js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^5.93.0",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "debeem-cipher": "^1.0.1",
+    "debeem-id": "^1.0.23",
+    "debeem-wallet": "^1.0.60",
+    "ethers": "^6.13.2",
+    "fake-indexeddb": "^6.0.0",
+    "idb": "^8.0.0"
+  }
+}
