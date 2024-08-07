@@ -30,7 +30,7 @@ check_and_install() {
         if npm list "$package" --depth=0 &> /dev/null; then
             echo "$package is already installed."
         else
-            echo "$package is not installed. Starting installation."
+            echo "$package is not installed. Preparing to install."
             to_install+=("$package")
         fi
     done
