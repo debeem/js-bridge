@@ -193,7 +193,7 @@ walletBusiness.customScript(label, script) { result ->
 ```
 </details>
 
-<h3 id="section-3-4">3.4.导入的具体业务包(替换成自己需要的服务)</h3>
+<h3 id="section-3-4">3.4.导入的具体业务包(替换成自己需要的服务: [JS业务更新](#section-4-2))</h3>
 
 js 中导入的对应包名，以及暴露的方法
  - DebeemWallet
