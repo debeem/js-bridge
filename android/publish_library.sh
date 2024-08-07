@@ -27,7 +27,7 @@ fi
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # 定义SDK目录路径（与脚本同级）
-SDK_DIR="$SCRIPT_DIR/js-bridge-npm"
+SDK_DIR="$SCRIPT_DIR/js-bridge"
 
 # 检查SDK目录是否存在
 if [ ! -d "$SDK_DIR" ]; then
