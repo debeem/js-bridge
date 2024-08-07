@@ -195,7 +195,7 @@ walletBusiness.customScript(label, script) { result ->
 
 <h3 id="section-3-4">3.4.导入的具体业务包</h3>
 
-可以通过更新 js 文件，替换成自己需要的服务，详细实现: [JS业务更新](#section-4-2) 
+可以通过更新 js 文件，替换成自己需要的服务，js如何创建更新及打包: [JS创建更新打包流程](#section-4-2) 
 
 以下是导入的 debeem-wallet npm 服务，在 js 中导入的对应包名，以及暴露的方法
  - DebeemWallet
@@ -206,6 +206,7 @@ walletBusiness.customScript(label, script) { result ->
  - FakeIndexeddb
  - serializable：暴露的方法，解决 BigInt 解析问题
 
+js 代码实现：[web-js-npm/src/index.js](web-js-npm/src/index.js)
 ```javascript
 
 // 首先确保所有需要的包都已经正确导入和挂载到 window 对象上
