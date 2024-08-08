@@ -1,35 +1,43 @@
 # Android JS-Bridge SDK
 
-- [1.Introduction](#section-1)
-- [2.Setting up](#section-2)
-    - [2.1.JS-Bridge SDK integration](#section-2-1)
-    - [2.2.JS Development Configuration](#section-2-2)
-      - [2.2.1.Initialize webpack](#section-2-2-1)
-      - [2.2.2.Service Configuration](#section-2-2-2)
-      - [2.2.3.Packaging and Publishing](#section-2-2-3)
-- [3.SDK Usage](#section-3)
-  - [3.1.Call custom JS script interfaces](#section-3-1)
-- [4.SDK Update](#section-4)
-  - [4.1.Android](#section-4-1)
-  - [4.2.JavaScript](#section-4-2)
-  - [4.3.Publishing](#section-4-3)
+- [1.Overview](#section-1)
+- [2.Quick Start](#section-2)
+  - [2.1.Android Side](#section-2-1)
+  - [2.2.JavaScript Side](#section-2-2)
+    - [2.2.1.Setup JavaScript Project](#section-2-2-1)
+    - [2.2.2.Business Service Configuration](#section-2-2-2)
+    - [2.2.3.Building and Packaging](#section-2-2-3)
+  - [2.3.Call the customScript function](#section-2-3)
+- [3.SDK Update](#section-3)
+  - [3.1.Android](#section-3-1)
+  - [3.2.JavaScript](#section-3-2)
+  - [3.3.Publishing](#section-3-3)
+- [4.Sample App](#section-4)
 - [5.FAQs](#section-5)
 
-<h1 id="section-1">1.Introduction</h1>
+<h1 id="section-1">1.Overview</h1>
 
-The Android JS-Bridge SDK is a powerful middleware whose core function is to call NPM services through the WebView's JavaScript interface, enabling cross-platform function reuse and flexible business logic processing. This approach is particularly suitable for hybrid application development, allowing you to take full advantage of the flexibility of web technologies and the performance advantages of native applications.
+The Android JS-Bridge SDK enables seamless communication between Android native code and JavaScript running in a WebView. This SDK is perfect for building hybrid applications that leverage both native Android capabilities and web technologies.
 
-<h1 id="section-2">2.Setting up</h1>
+<b>Requirements</b>
+ - Android API level 26 (Android 8.0) or higher
+ - Java 17+
+ - Gradle 8.0+
+ - Node.js 18+
+ - NPM 9+
 
-<h2 id="section-2-1">2.1.JS-Bridge SDK integration</h2>
+<h1 id="section-2">2.Quick start</h1>
+
+<h2 id="section-2-1">2.1.Android Side</h2>
 
 Add the JitPack Maven repository to your project-level `build.gradle` file:
-```kotlin
+
+```gradle
 dependencyResolutionManagement {
 	repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
 	repositories {
 		mavenCentral()
-		maven { url 'https://jitpack.io' } // 添加这一行
+		maven { url 'https://jitpack.io' }    // Add this line
 	}
 }
 ```
@@ -44,17 +52,27 @@ dependencies {
 }
 ```
 
-<h2 id="section-2-2">2.2.JS Development Configuration</h2>
+<h2 id="section-2-2">2.2.JavaScript Side</h2>
 
-<h3 id="section-2-2-1">2.2.1.Initialize webpack</h3>
+<h3 id="section-2-2-1">2.2.1.Setup JavaScript Project</h3>
 
-<b>从 js-bridge sdk 的目录中拷贝脚本目录 `builder` 到 android 项目中。</b>
+Six steps are required to implement JS business logic calls:
 
-✅ 第一步，执行初始化脚本 `setup_webpack.sh`: 
+ - ✅ Step 1: Copy builder scripts.
+ - ✅ Step 2: JS Initialization.
+ - ✅ Step 3: JS Business Service Configuration.
+ - ✅ Step 4: JS Building and Packaging.
+ - ✅ Step 5: Android Business Implementation and Custom Script Invocation.
+ - ✅ Step 6: Android Compile and Debug 
+
+✅ Step 1: Copy the script directory `builder` from the JS-Bridge SDK directory to the Android project.
+
+✅ Step 2: Execute the initialization script `setup_webpack.sh`:
+
 ```shell
 ./builder/setup_webpack.sh
 ```
-以下是生成的 `js` 目录结构 和  `src/main/assets` 目录结构：
+The generated `js` and `src/main/assets` directory structure:
 ```
 js/
 ├── dist/
@@ -69,30 +87,34 @@ js/
 src/main/assets/
 └── index.html
 ```
-`js` 目录下：
- - `dist/`: 文件夹存放生成的 `bundle.js`
- - `node_modules/`: npm 生成的依赖包文件
- - `src/`: `index.js` 和 `business.js` 业务代码
- - `package.json`: npm 配置文件
- - `webpack.config.js`: webpack 配置文件
+`js`：
+ - `dist/`: The generated `bundle.js` file is stored.
+ - `node_modules/`: Dependency package files.
+ - `src/`: `index.js` and `business.js` business logic code.
+ - `package.json`: configuration file.
+ - `webpack.config.js`: webpack configuration file.
 
-`src/main/assets/` 目录下：
- - `index.html`: JS-Bridge SDK 加载 `index.html`(引入 `bundle.js` 服务)
+`src/main/assets/`：
+ - `index.html`: The JS-Bridge SDK loads `index.html` (which includes the `bundle.js` services).
 
-<h4 id="section-2-2-2">2.2.2.Service Configuration</h4>
+<h4 id="section-2-2-2">2.2.2.Business Service Configuration</h4>
 
-✅ 第二步，修改 `builder/build_webpack.sh` 文件中的依赖业务。
-脚本文件中是个 `debeem-wallet` 示例：
+✅ Step 3: Modify the business dependencies in the `builder/build_webpack.sh` file.
+
+The script file contains a `debeem-wallet` example:
+
 ```shell
 ########################## Editable ###############################
-# TODO 修改成具体业务定义生产依赖包列表
+# TODO: Modify to define the list of production dependency packages for your specific business logic.
 prod_packages=("debeem-wallet" "debeem-id" "debeem-cipher" "ethers" "idb" "fake-indexeddb")
 ###################################################################
 
 ```
 
-然后需要继续修改 `src/business.js` 文件，配置并暴露服务。
-`src/business.js` 中只是个 `debeem-wallet` 示例：
+Then you need to modify the `src/business.js` file to configure and expose your business services.
+
+`src/business.js` contains just a `debeem-wallet` example:
+
 ```shell
 // business.js
 // This is a sample code. You need to modify it to your own business logic.
@@ -119,26 +141,28 @@ export function serializable(obj) {
 window.serializable = serializable;
 ```
 
-<h3 id="section-2-2-3">2.2.3.Packaging and Publishing</h3>
+<h3 id="section-2-2-3">2.2.3.Building and Packaging</h3>
 
-✅ 第三步，配置好 js 服务之后，执行 `build_webpack.sh` 脚本:
+✅ Step 4: After configuring the JS services, execute the `build_webpack.sh` script:
+
 ```shell
 ./builder/build_webpack.sh
 ```
-脚本通过 `webpack` 把 js 打包生成 `bundle.js`，同时复制到 android 项目中的 `assets` 中: 
+
+The script uses `webpack` to package the JS code into `bundle.js` and copies it to the `src/main/assets/` directory in the Android project:
+
 ```
 src/main/assets/
 ├── bundle.js
 └── index.html
 ```
 
-<b>✅ 第四步，最后 android 项目编译调试就可以调用最新的 js 服务了。</b>
+<h2 id="section-2-3">2.3.Call the customScript function</h2>
 
-<h1 id="section-3">3.SDK Usage</h1>
+✅ Step 5: Call JS services in the Android project through the JS-Bridge SDK interface.
 
-<h2 id="section-3-3">3.1.Call custom JS script interface</h2>
+kotlin code interface:
 
-kotlin code interface
 ```kotlin
 customScript(label, script, callback)
 ```
@@ -147,16 +171,28 @@ Directly write JS business scripts in native code
  - script: Specific JS script.
  - callback: Callback method.
 
-Custom JS Business Logic (Example: DebeemWallet)
+Custom JS Business Logic (Example: DebeemWallet):
+
 ```javascript
 // business.js
 // This is a sample code. You need to modify it to your own business logic.
 import * as DebeemWallet from 'debeem-wallet';
 window.DebeemWallet = DebeemWallet;
+
+export function serializable(obj) {
+    return JSON.parse(JSON.stringify(obj, (key, value) =>
+    typeof value === 'bigint'
+    ? value.toString()
+    : value
+    ));
+}
+window.serializable = serializable;
 ```
 
 Example requirement: Need to get the price of BTC/USD, which can be achieved through the queryPairPrice method of the WalletAccount class in the DebeemWallet wallet.
-Kotlin code example
+
+Kotlin code example:
+
 ```kotlin
 // custom script
 val label = "custom_test"
@@ -189,39 +225,41 @@ walletBusiness.customScript(label, script) { result ->
 }
 ```
 
-<h1 id="section-4">4.SDK Update</h1>
+<b>✅ Step 6: Finally, compile and debug the Android project to call the latest JS services.</b>
 
-<h2 id="section-4-1">4.1.Android</h2>
+<h1 id="section-3">3.SDK Update</h1>
 
-Android Native 接口更新，可以通过修改 SDK 目录中的 NpmServiceSDK.kt 文件，更新升级 SDK。
+<h2 id="section-3-1">3.1.Android</h2>
 
-<h2 id="section-4-2">4.2.JavaScript</h2>
+Android Native Interface Update: You can update and upgrade the SDK by modifying the NpmServiceSDK.kt file in the SDK directory.
 
-Details: [2.2.JS business development environment](#section-2-2)
+<h2 id="section-3-2">3.2.JavaScript</h2>
 
-<h2 id="section-4-3">4.3.Publishing</h2>
+Details: [2.2.JavaScript Side](#section-2-2)
 
-1、SDK 上传打包
+<h2 id="section-3-3">3.3.Publishing</h2>
 
-通过给项目打 tag，上传到 github 上，jitpack 自动识别 tag 自动打包。
+By tagging the project and uploading it to GitHub, JitPack will automatically recognize the tag and package it.
 
 ```shell
-./publish_library.sh -v 1.0.0-alpha.2
-
-// 在根目录下执行
 ./android/publish_library.sh -v 1.0.0-alpha.15
 ```
-><b>版本控制和策略</b>  
-> alpha（1.0.0-alpha.1）: 早期内测版本，功能可能不完整  
-> beta（1.0.0-beta.2）: 功能基本完整，相比Alpha版本更稳定  
-> rc（1.0.0-rc.1）: 功能完整，主要bug已修复，可能直接成为正式发布版本  
-> 1.0.0 : 正式发布的稳定版本  
+><b>Version Control and Strategy</b>  
+> alpha (1.0.0-alpha.1) : Early internal testing version, functionality may not be complete.  
+> beta (1.0.0-beta.2) : Functionality is basically complete and more stable than the Alpha version.  
+> rc (1.0.0-rc.1) : Functionality is complete, major bugs have been fixed, and it may directly become an official release version.  
+> 1.0.0 : Officially released stable version  
 
-<h1 id="section-5">5.常见问题</h1>
+<h1 id="section-4">4.Sample App</h1>
 
-1、由于在 android 目录中创建了 `node_modules` 目录，会导致 android studio 加载卡顿。
-可以手动设置 `node_modules` 不加载操作，在 `node_modules` 目录上右键：Mark Directory as -> Excluded  
+Check out our sample app in the [sample-debeem-wallet](sample-debeem-wallet) directory for a working example of SDK integration.
+
+<h1 id="section-5">5.FAQs</h1>
+
+1. Since the `node_modules` directory is created in the Android directory, it will cause Android Studio to lag.  
+You can manually set `node_modules` not to load. Right-click on the `node_modules` directory: Mark Directory as -> Excluded.
 
 ![android studio](images/android_studio_fix_1.png)
+
 
 
