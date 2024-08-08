@@ -1,7 +1,5 @@
 # Android JS-Bridge SDK
 
-[![](https://jitpack.io/v/debeem/js-bridge.svg)](https://jitpack.io/#debeem/js-bridge)
-
 - [1.Introduction](#section-1)
 - [2.Setting up](#section-2)
     - [2.1.JS-Bridge SDK integration](#section-2-1)
@@ -17,13 +15,13 @@
   - [4.3.Publishing](#section-4-3)
 - [5.FAQs](#section-5)
 
-<h2 id="section-1">1.Introduction</h2>
+<h1 id="section-1">1.Introduction</h1>
 
 The Android JS-Bridge SDK is a powerful middleware whose core function is to call NPM services through the WebView's JavaScript interface, enabling cross-platform function reuse and flexible business logic processing. This approach is particularly suitable for hybrid application development, allowing you to take full advantage of the flexibility of web technologies and the performance advantages of native applications.
 
-<h2 id="section-2">2.Setting up</h2>
+<h1 id="section-2">2.Setting up</h1>
 
-<h3 id="section-2-1">2.1.JS-Bridge SDK integration</h3>
+<h2 id="section-2-1">2.1.JS-Bridge SDK integration</h2>
 
 Add the JitPack Maven repository to your project-level `build.gradle` file:
 ```kotlin
@@ -46,9 +44,9 @@ dependencies {
 }
 ```
 
-<h3 id="section-2-2">2.2.JS business development environment</h3>
+<h2 id="section-2-2">2.2.JS business development environment</h2>
 
-<h4 id="section-2-2-1">2.2.1.Initialize webpack</h4>
+<h3 id="section-2-2-1">2.2.1.Initialize webpack</h3>
 
 从 js-bridge sdk 的目录中拷贝打包脚本目录 `builder` 到自己的 android 项目中
 
@@ -106,7 +104,7 @@ export function serializable(obj) {
 window.serializable = serializable;
 ```
 
-<h4 id="section-2-2-3">2.2.3.Packaging and Publishing</h4>
+<h3 id="section-2-2-3">2.2.3.Packaging and Publishing</h3>
 
 配置好 js 服务之后，就可以通过 `build_webpack.sh` 脚本打包发布生成的 `bundle.js` 了。
 
@@ -121,9 +119,9 @@ window.serializable = serializable;
 
 最后 android 项目编译调试就可以调用最新的 js 服务了。
 
-<h2 id="section-3">3.SDK Usage</h2>
+<h1 id="section-3">3.SDK Usage</h1>
 
-<h3 id="section-3-3">3.1.Call custom JS script interface</h3>
+<h2 id="section-3-3">3.1.Call custom JS script interface</h2>
 
 kotlin code interface
 ```kotlin
@@ -176,16 +174,17 @@ walletBusiness.customScript(label, script) { result ->
 }
 ```
 
-<h2 id="section-4">4.SDK Update</h2>
+<h1 id="section-4">4.SDK Update</h1>
 
-<h3 id="section-4-1">4.1.Android</h3>
+<h2 id="section-4-1">4.1.Android</h2>
 
 Android Native 接口更新，可以通过修改 SDK 目录中的 NpmServiceSDK.kt 文件，更新升级 SDK。
 
-<h3 id="section-4-2">4.2.JavaScript</h3>
+<h2 id="section-4-2">4.2.JavaScript</h2>
 
+Details: [2.2.JS business development environment](#section-2-2)
 
-<h3 id="section-4-3">4.3.Publishing</h3>
+<h2 id="section-4-3">4.3.Publishing</h2>
 
 1、SDK 上传打包
 
@@ -203,7 +202,7 @@ Android Native 接口更新，可以通过修改 SDK 目录中的 NpmServiceSDK.
 > rc（1.0.0-rc.1）: 功能完整，主要bug已修复，可能直接成为正式发布版本  
 > 1.0.0 : 正式发布的稳定版本  
 
-<h2 id="section-5">5.常见问题</h2>
+<h1 id="section-5">5.常见问题</h1>
 
 1、由于在 android 目录中创建了 `node_modules` 目录，会导致 android studio 加载卡顿。
 可以手动设置 `node_modules` 不加载操作，在 `node_modules` 目录上右键：Mark Directory as -> Excluded
