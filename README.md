@@ -1,28 +1,33 @@
 # js-bridge
 
-## android 
+## Android Side 
 
 [![](https://jitpack.io/v/debeem/js-bridge.svg)](https://jitpack.io/#debeem/js-bridge)
 
-主要实现 Android 通过 JS 调用 npm 服务，更多详细内容：[README](android/README.md)
+Primarily enables Android to call NPM services through JS. For more details: [README](android/README.md)
 
-### 集成
+### Quick start
 
-在项目根目录的 build.gradle 文件中添加 jitpack 依赖：
-```kotlin
+<h1 id="section-2">2.Quick start</h1>
+
+<h2 id="section-2-1">2.1.Android Side</h2>
+
+Add the JitPack Maven repository to your project-level `build.gradle` file:
+
+```gradle
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        mavenCentral()
-        maven { url 'https://jitpack.io' }      // Add this line
-    }
+	repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+	repositories {
+		mavenCentral()
+		maven { url 'https://jitpack.io' }    // Add this line
+	}
 }
 ```
 
-在你的 `app/build.gradle` 文件中添加以下依赖：
+Add the dependency to your `app/build.gradle` file:
 
 ```gradle
 dependencies {
-    implementation 'com.github.debeem:js-bridge:1.0.0-alpha.15'
+    implementation 'com.github.debeem:js-bridge:x.x.x'
 }
 ```
