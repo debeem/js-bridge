@@ -3,7 +3,7 @@
 - [1.Introduction](#section-1)
 - [2.Setting up](#section-2)
     - [2.1.JS-Bridge SDK integration](#section-2-1)
-    - [2.2.JS business development environment](#section-2-2)
+    - [2.2.JS Development Configuration](#section-2-2)
       - [2.2.1.Initialize webpack](#section-2-2-1)
       - [2.2.2.Service Configuration](#section-2-2-2)
       - [2.2.3.Packaging and Publishing](#section-2-2-3)
@@ -44,7 +44,7 @@ dependencies {
 }
 ```
 
-<h2 id="section-2-2">2.2.JS business development environment</h2>
+<h2 id="section-2-2">2.2.JS Development Configuration</h2>
 
 <h3 id="section-2-2-1">2.2.1.Initialize webpack</h3>
 
