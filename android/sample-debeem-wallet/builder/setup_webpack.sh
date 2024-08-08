@@ -52,6 +52,28 @@ EOF
 echo "Create the src/business.js file."
 cat << EOF > src/business.js
 // business.js
+// This is a sample code. You need to modify it to your own business logic.
+import * as DebeemWallet from 'debeem-wallet';
+window.DebeemWallet = DebeemWallet;
+import * as DebeemId from 'debeem-id';
+window.DebeemId = DebeemId;
+import * as DebeemCipher from 'debeem-cipher';
+window.DebeemCipher = DebeemCipher;
+import * as Ethers from 'ethers';
+window.Ethers = Ethers;
+import * as Idb from 'idb';
+window.Idb = Idb;
+import * as FakeIndexeddb from 'fake-indexeddb';
+window.FakeIndexeddb = FakeIndexeddb;
+
+export function serializable(obj) {
+    return JSON.parse(JSON.stringify(obj, (key, value) =>
+    typeof value === 'bigint'
+    ? value.toString()
+    : value
+    ));
+}
+window.serializable = serializable;
 EOF
 
 echo "Create the src/index.js file."
@@ -80,8 +102,8 @@ window.initialize = (initialized = true, callback) => {
 EOF
 
 echo "Create the .gitignore file."
-cat << EOF > .gitignore
-/node_modules
+cat << EOF > .androidstudioignore
+/node_modules/
 package-lock.json
 EOF
 
