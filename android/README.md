@@ -205,7 +205,8 @@ Details: [2.2.JS business development environment](#section-2-2)
 <h1 id="section-5">5.常见问题</h1>
 
 1、由于在 android 目录中创建了 `node_modules` 目录，会导致 android studio 加载卡顿。
-可以手动设置 `node_modules` 不加载操作，在 `node_modules` 目录上右键：Mark Directory as -> Excluded
+可以手动设置 `node_modules` 不加载操作，在 `node_modules` 目录上右键：Mark Directory as -> Excluded  
+
 ![android studio](images/android_studio_fix_1.png)
 
 
