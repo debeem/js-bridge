@@ -19,7 +19,7 @@
 
 <h2 id="section-1">1.Introduction</h2>
 
-The Android js-bridge SDK is a powerful middleware whose core function is to call NPM services through the WebView's JavaScript interface, enabling cross-platform function reuse and flexible business logic processing. This approach is particularly suitable for hybrid application development, allowing you to take full advantage of the flexibility of web technologies and the performance advantages of native applications.
+The Android JS-Bridge SDK is a powerful middleware whose core function is to call NPM services through the WebView's JavaScript interface, enabling cross-platform function reuse and flexible business logic processing. This approach is particularly suitable for hybrid application development, allowing you to take full advantage of the flexibility of web technologies and the performance advantages of native applications.
 
 <h2 id="section-2">2.Setting up</h2>
 
@@ -36,7 +36,7 @@ dependencyResolutionManagement {
 }
 ```
 
-Add the dependency to your `app/build.gradle` file:
+Add the dependency to your `app/build.gradle` file: [![](https://jitpack.io/v/debeem/js-bridge.svg)](https://jitpack.io/#debeem/js-bridge)
 
 ```gradle
 dependencies {
