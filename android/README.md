@@ -36,7 +36,9 @@ dependencyResolutionManagement {
 }
 ```
 
-Add the dependency to your `app/build.gradle` file: [![](https://jitpack.io/v/debeem/js-bridge.svg)](https://jitpack.io/#debeem/js-bridge)
+Add the dependency to your `app/build.gradle` file:   
+
+[![](https://jitpack.io/v/debeem/js-bridge.svg)](https://jitpack.io/#debeem/js-bridge)
 
 ```gradle
 dependencies {
