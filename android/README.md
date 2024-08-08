@@ -46,7 +46,7 @@ dependencies {
 
 <h3 id="section-2-2">2.2.JS business development environment</h3>
 
-<h3 id="section-2-2-1">2.2.1.Initialize webpack</h3>
+<h4 id="section-2-2-1">2.2.1.Initialize webpack</h4>
 
 从 js-bridge sdk 的目录中拷贝打包脚本目录 `builder` 到自己的 android 项目中
 
@@ -64,7 +64,7 @@ dependencies {
  - 创建并配置 `src/index.js`，`src/business.js` 模版代码
  - 创建并配置 android 项目中的 `assets/index.html` 文件
 
-<h3 id="section-2-2-2">2.2.2.Service Configuration</h3>
+<h4 id="section-2-2-2">2.2.2.Service Configuration</h4>
 
 修改 `builder/build_webpack.sh` 文件中的依赖业务。
 脚本文件中是个 `debeem-wallet` 示例：
@@ -104,7 +104,7 @@ export function serializable(obj) {
 window.serializable = serializable;
 ```
 
-<h3 id="section-2-2-3">2.2.3.Packaging and Publishing</h3>
+<h4 id="section-2-2-3">2.2.3.Packaging and Publishing</h4>
 
 配置好 js 服务之后，就可以通过 `build_webpack.sh` 脚本打包发布生成的 `bundle.js` 了。
 
