@@ -48,9 +48,9 @@ dependencies {
 
 <h3 id="section-2-2-1">2.2.1.Initialize webpack</h3>
 
-从 js-bridge sdk 的目录中拷贝打包脚本目录 `builder` 到自己的 android 项目中。
+<b>从 js-bridge sdk 的目录中拷贝脚本目录 `builder` 到 android 项目中。</b>
 
-执行初始化脚本 `setup_webpack.sh`: 
+第一步，执行初始化脚本 `setup_webpack.sh`: 
 ```shell
 ./builder/setup_webpack.sh
 ```
@@ -81,7 +81,7 @@ src/main/assets/
 
 <h4 id="section-2-2-2">2.2.2.Service Configuration</h4>
 
-修改 `builder/build_webpack.sh` 文件中的依赖业务。
+第二步，修改 `builder/build_webpack.sh` 文件中的依赖业务。
 脚本文件中是个 `debeem-wallet` 示例：
 ```shell
 ########################## Editable ###############################
@@ -121,7 +121,7 @@ window.serializable = serializable;
 
 <h3 id="section-2-2-3">2.2.3.Packaging and Publishing</h3>
 
-配置好 js 服务之后，执行 `build_webpack.sh` 脚本:
+第三步，配置好 js 服务之后，执行 `build_webpack.sh` 脚本:
 ```shell
 ./builder/build_webpack.sh
 ```
@@ -132,7 +132,7 @@ src/main/assets/
 └── index.html
 ```
 
-<b>最后 android 项目编译调试就可以调用最新的 js 服务了。</b>
+<b>第四步，最后 android 项目编译调试就可以调用最新的 js 服务了。</b>
 
 <h1 id="section-3">3.SDK Usage</h1>
 
