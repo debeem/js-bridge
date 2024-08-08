@@ -117,7 +117,7 @@ window.serializable = serializable;
  - 生成 `bundle.js`
  - 把生成的 `bundle.js` 复制到 android 项目中的 `assets` 中
 
-最后 android 项目编译调试就可以调用最新的 js 服务了。
+<b>最后 android 项目编译调试就可以调用最新的 js 服务了。</b>
 
 <h1 id="section-3">3.SDK Usage</h1>
 
