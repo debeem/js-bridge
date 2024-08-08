@@ -57,12 +57,31 @@ dependencies {
 ./builder/setup_webpack.sh
 ```
 
-该脚本的主要功能如下：
- - 会创建一个 `js` 目录，然后在 `js` 目录中创建 `src`、`dist` 目录
- - 在 `js` 中，初始化 `npm` 项目，安装 `webpack`，`webpack-cli`
- - 创建并配置 `webpack.config.js` 文件
- - 创建并配置 `src/index.js`，`src/business.js` 模版代码
- - 创建并配置 android 项目中的 `assets/index.html` 文件
+以下是生成的 `js` 目录结构 和  `assets` 目录结构：
+```
+js/
+├── dist/
+├── node_modules/
+├── src/
+│   ├── business.js
+│   └── index.js
+├── .gitignore
+├── package.json
+└── webpack.config.js
+
+src/main/assets/
+└── index.html
+```
+`js` 目录下：
+ - `dist/`: 文件夹存放生成的 `bundle.js`
+ - `node_modules/`: npm 生成的依赖包文件
+ - `src/`: `index.js` 和 `business.js` 业务代码
+ - `package.json`: npm 配置文件
+ - `webpack.config.js`: webpack 配置文件
+
+`src/main/assets/` 目录下：
+ - `index.js`: 引用生成的 `bundle.js`
+
 
 <h4 id="section-2-2-2">2.2.2.Service Configuration</h4>
 
@@ -112,10 +131,12 @@ window.serializable = serializable;
 ```shell
 ./builder/build_webpack.sh
 ```
-
-该脚本的主要功能如下：
- - 生成 `bundle.js`
- - 把生成的 `bundle.js` 复制到 android 项目中的 `assets` 中
+把生成的 `bundle.js` 复制到 android 项目中的 `assets` 中: 
+```
+src/main/assets/
+├── bundle.js
+└── index.html
+```
 
 <b>最后 android 项目编译调试就可以调用最新的 js 服务了。</b>
 
