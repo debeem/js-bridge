@@ -48,16 +48,13 @@ dependencies {
 
 <h3 id="section-2-2-1">2.2.1.Initialize webpack</h3>
 
-从 js-bridge sdk 的目录中拷贝打包脚本目录 `builder` 到自己的 android 项目中
+从 js-bridge sdk 的目录中拷贝打包脚本目录 `builder` 到自己的 android 项目中。
 
-然后在 android 项目中，执行初始化脚本 `setup_webpack.sh`，初始化脚本只需要执行一次。
-
-在 android 项目中执行初始化操作：
+执行初始化脚本 `setup_webpack.sh`: 
 ```shell
 ./builder/setup_webpack.sh
 ```
-
-以下是生成的 `js` 目录结构 和  `assets` 目录结构：
+以下是生成的 `js` 目录结构 和  `src/main/assets` 目录结构：
 ```
 js/
 ├── dist/
@@ -80,8 +77,7 @@ src/main/assets/
  - `webpack.config.js`: webpack 配置文件
 
 `src/main/assets/` 目录下：
- - `index.js`: 引用生成的 `bundle.js`
-
+ - `index.html`: JS-Bridge SDK 加载 `index.html`(引入 `bundle.js` 服务)
 
 <h4 id="section-2-2-2">2.2.2.Service Configuration</h4>
 
@@ -125,13 +121,11 @@ window.serializable = serializable;
 
 <h3 id="section-2-2-3">2.2.3.Packaging and Publishing</h3>
 
-配置好 js 服务之后，就可以通过 `build_webpack.sh` 脚本打包发布生成的 `bundle.js` 了。
-
-在 android 项目中执行打包发布操作：
+配置好 js 服务之后，执行 `build_webpack.sh` 脚本:
 ```shell
 ./builder/build_webpack.sh
 ```
-把生成的 `bundle.js` 复制到 android 项目中的 `assets` 中: 
+脚本通过 `webpack` 把 js 打包生成 `bundle.js`，同时复制到 android 项目中的 `assets` 中: 
 ```
 src/main/assets/
 ├── bundle.js
