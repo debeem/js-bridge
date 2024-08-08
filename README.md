@@ -1,16 +1,12 @@
 # js-bridge
 
-## Android Side 
+## Android JS-Bridge SDK 
 
 [![](https://jitpack.io/v/debeem/js-bridge.svg)](https://jitpack.io/#debeem/js-bridge)
 
 Primarily enables Android to call NPM services through JS. For more details: [README](android/README.md)
 
 ### Quick start
-
-<h1 id="section-2">2.Quick start</h1>
-
-<h2 id="section-2-1">2.1.Android Side</h2>
 
 Add the JitPack Maven repository to your project-level `build.gradle` file:
 
