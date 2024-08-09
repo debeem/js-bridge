@@ -171,7 +171,7 @@ Directly write JS business scripts in native code
  - script: Specific JS script.
  - callback: Callback method.
 
-Custom JS Business Logic in `js/src/business.js` (Example: DebeemWallet):
+Custom JS Business Logic in `js/src/business.js` (Example: DebeemWallet): [More Details](#section-2-2-2)
 
 ```javascript
 // business.js
