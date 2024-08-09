@@ -2,8 +2,8 @@
 
 - [1.Overview](#section-1)
 - [2.Quick Start](#section-2)
-  - [2.1.Android Side](#section-2-1)
-  - [2.2.JavaScript Side](#section-2-2)
+  - [2.1.Android](#section-2-1)
+  - [2.2.JavaScript](#section-2-2)
     - [2.2.1.Setup JavaScript Project](#section-2-2-1)
     - [2.2.2.Business Service Configuration](#section-2-2-2)
     - [2.2.3.Building and Packaging](#section-2-2-3)
@@ -28,7 +28,7 @@ The Android JS-Bridge SDK enables seamless communication between Android native 
 
 <h1 id="section-2">2.Quick start</h1>
 
-<h2 id="section-2-1">2.1.Android Side</h2>
+<h2 id="section-2-1">2.1.Android</h2>
 
 Add the JitPack Maven repository to your project-level `build.gradle` file:
 
@@ -52,7 +52,7 @@ dependencies {
 }
 ```
 
-<h2 id="section-2-2">2.2.JavaScript Side</h2>
+<h2 id="section-2-2">2.2.JavaScript</h2>
 
 <h3 id="section-2-2-1">2.2.1.Setup JavaScript Project</h3>
 
@@ -171,7 +171,7 @@ Directly write JS business scripts in native code
  - script: Specific JS script.
  - callback: Callback method.
 
-Custom JS Business Logic (Example: DebeemWallet):
+Custom JS Business Logic in `js/src/business.js` (Example: DebeemWallet):
 
 ```javascript
 // business.js
