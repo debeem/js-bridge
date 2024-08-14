@@ -97,7 +97,7 @@ window.initialize = (initialized = true, callback) => {
 
     init().then(result => {
         window.Android.handleResult("initialize", JSON.stringify(result));
-    });gs
+    });
 };
 EOF
 

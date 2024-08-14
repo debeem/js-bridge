@@ -3,7 +3,7 @@
 # Check if a webpack project already exists.
 if ([ -d "js" ] &&
     [ -d "js/node_modules" ] &&
-    [ -d "js/dist" ] &&
+    [ -d "js/output" ] &&
     [ -d "js/src" ] &&
     [ -f "js/package.json" ] &&
     [ -f "js/webpack.config.js" ]); then
@@ -31,7 +31,7 @@ npm install webpack webpack-cli --save-dev
 
 # Create the "src" and "dist" directories.
 echo "Create the src and dist directories."
-mkdir -p src dist
+mkdir -p src output
 
 # Create and configure the "webpack.config.js" file.
 echo "Create and configure the webpack.config.js file."
