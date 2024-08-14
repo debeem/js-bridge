@@ -59,9 +59,9 @@ dependencies {
 Six steps are required to implement JS business logic calls:
 
  - ✅ Step 1: Copy builder scripts. [builder](js-bridge/builder)
- - ✅ Step 2: JS Initialization. [init_webpack.sh](js-bridge/builder/init_webpack.sh)
- - ✅ Step 3: JS Business Service Configuration. [index.js](sample-debeem-wallet/js/src/index.js), [business.js](sample-debeem-wallet/js/src/business.js)
- - ✅ Step 4: JS Building and Packaging. [bundle.js](sample-debeem-wallet/js/output/bundle.js)
+ - ✅ Step 2: JS Initialization. [init_webpack.sh](sample-debeem-wallet/builder/init_webpack.sh)
+ - ✅ Step 3: JS Business Service Configuration. [index.js](sample-debeem-wallet/js/src/index.js), [business.js](sample-debeem-wallet/js/src/business.js), [assets/index.html](sample-debeem-wallet/src/main/assets/index.html)
+ - ✅ Step 4: JS Building and Packaging. [build_webpack.sh](sample-debeem-wallet/builder/build_webpack.sh) -> [bundle.js](sample-debeem-wallet/js/output/bundle.js)
  - ✅ Step 5: Android Business Implementation and Custom Script Invocation. [MainActivity.kt](sample-debeem-wallet/src/main/java/com/debeem/wallet/npm/sample/MainActivity.kt)
  - ✅ Step 6: Android Compile and Debug. 
 
