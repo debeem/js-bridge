@@ -70,6 +70,7 @@ Six steps are required to implement JS business logic calls:
 ✅ Step 2: Execute the initialization script `setup_webpack.sh`:
 
 ```shell
+cd sample-debeem-wallet  // cd android/app
 ./builder/setup_webpack.sh
 ```
 The generated `js` and `src/main/assets` directory structure:

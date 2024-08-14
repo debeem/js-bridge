@@ -49,7 +49,7 @@ module.exports = {
 };
 EOF
 
-echo "Create the src/business.js file."
+echo "Create the src/business.js file includes sample business."
 cat << EOF > src/business.js
 // business.js
 // This is a sample code. You need to modify it to your own business logic.
@@ -102,7 +102,7 @@ window.initialize = (initialized = true, callback) => {
 EOF
 
 echo "Create the .gitignore file."
-cat << EOF > .androidstudioignore
+cat << EOF > .gitignore
 /node_modules/
 package-lock.json
 EOF
