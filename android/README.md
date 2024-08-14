@@ -58,20 +58,20 @@ dependencies {
 
 Six steps are required to implement JS business logic calls:
 
- - ✅ Step 1: Copy builder scripts.
- - ✅ Step 2: JS Initialization.
- - ✅ Step 3: JS Business Service Configuration.
- - ✅ Step 4: JS Building and Packaging.
- - ✅ Step 5: Android Business Implementation and Custom Script Invocation.
- - ✅ Step 6: Android Compile and Debug 
+ - ✅ Step 1: Copy builder scripts. [builder](js-bridge/builder)
+ - ✅ Step 2: JS Initialization. [init_webpack.sh](js-bridge/builder/init_webpack.sh)
+ - ✅ Step 3: JS Business Service Configuration. [index.js](sample-debeem-wallet/js/src/index.js), [business.js](sample-debeem-wallet/js/src/business.js)
+ - ✅ Step 4: JS Building and Packaging. [bundle.js](sample-debeem-wallet/js/output/bundle.js)
+ - ✅ Step 5: Android Business Implementation and Custom Script Invocation. [MainActivity.kt](sample-debeem-wallet/src/main/java/com/debeem/wallet/npm/sample/MainActivity.kt)
+ - ✅ Step 6: Android Compile and Debug. 
 
 ✅ Step 1: Copy the script directory `builder` from the JS-Bridge SDK directory to the Android project.
 
-✅ Step 2: Execute the initialization script `setup_webpack.sh`:
+✅ Step 2: Execute the initialization script `init_webpack.sh`: [init_webpack.sh](sample-debeem-wallet/builder/init_webpack.sh)
 
 ```shell
-cd sample-debeem-wallet  // cd android/app
-./builder/setup_webpack.sh
+cd sample-debeem-wallet
+./builder/init_webpack.sh
 ```
 The generated `js` and `src/main/assets` directory structure:
 ```
@@ -98,23 +98,15 @@ src/main/assets/
 `src/main/assets/`：
  - `index.html`: The JS-Bridge SDK loads `index.html` (which includes the `bundle.js` services).
 
+** You can use sh to initialize a template project, or you can manually add index.js and business.js files to your existing project's src directory, and an index.html file to the android/assets directory. **
+
 <h4 id="section-2-2-2">2.2.2.Business Service Configuration</h4>
 
-✅ Step 3: Modify the business dependencies in the `builder/build_webpack.sh` file.
-
-The script file contains a `debeem-wallet` example:
-
-```shell
-########################## Editable ###############################
-# TODO: Modify to define the list of production dependency packages for your specific business logic.
-prod_packages=("debeem-wallet" "debeem-id" "debeem-cipher" "ethers" "idb" "fake-indexeddb")
-###################################################################
-
-```
+✅ Step 3: Modify the business dependencies in the `src/business.js` file.
 
 Then you need to modify the `src/business.js` file to configure and expose your business services.
 
-`src/business.js` contains just a `debeem-wallet` example:
+`src/business.js` contains just a `debeem-wallet` example: [business.js](sample-debeem-wallet/js/src/business.js)
 
 ```shell
 // business.js
@@ -144,7 +136,7 @@ window.serializable = serializable;
 
 <h3 id="section-2-2-3">2.2.3.Building and Packaging</h3>
 
-✅ Step 4: After configuring the JS services, execute the `build_webpack.sh` script:
+✅ Step 4: After configuring the JS services, execute the `build_webpack.sh` script: [build_webpack.sh](sample-debeem-wallet/builder/build_webpack.sh)
 
 ```shell
 ./builder/build_webpack.sh
