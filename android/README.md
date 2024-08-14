@@ -65,10 +65,10 @@ Six steps are required to implement JS business logic calls:
  - ✅ Step 5: Android Business Implementation and Custom Script Invocation. [MainActivity.kt](sample-debeem-wallet/src/main/java/com/debeem/wallet/npm/sample/MainActivity.kt)
  - ✅ Step 6: Android Compile and Debug. 
 
-> [!TIP]
-> You can use sh to initialize a template project, or you can manually add index.js and business.js files to your existing project's src directory, and an index.html file to the android/assets directory.
-
 ✅ Step 1: Copy the script directory `builder` from the JS-Bridge SDK directory to the Android project.
+
+> [!TIP]
+> You can use `init_webpack.sh` to initialize a template project, or you can manually add `index.js` and `business.js` files to your existing project's src directory, and an `index.html` file to the `android/assets` directory.
 
 ✅ Step 2: Execute the initialization script `init_webpack.sh`: [init_webpack.sh](sample-debeem-wallet/builder/init_webpack.sh)
 
