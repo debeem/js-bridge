@@ -3,7 +3,7 @@
 # Check if a webpack project already exists.
 if ([ -d "js" ] &&
     [ -d "js/node_modules" ] &&
-    [ -d "js/dist" ] &&
+    [ -d "js/output" ] &&
     [ -d "js/src" ] &&
     [ -f "js/package.json" ] &&
     [ -f "js/webpack.config.js" ]); then
@@ -31,7 +31,7 @@ npm install webpack webpack-cli --save-dev
 
 # Create the "src" and "dist" directories.
 echo "Create the src and dist directories."
-mkdir -p src dist
+mkdir -p src output
 
 # Create and configure the "webpack.config.js" file.
 echo "Create and configure the webpack.config.js file."
@@ -44,7 +44,7 @@ module.exports = {
   entry: './src/index.js',
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'output'),
   }
 };
 EOF
@@ -97,12 +97,12 @@ window.initialize = (initialized = true, callback) => {
 
     init().then(result => {
         window.Android.handleResult("initialize", JSON.stringify(result));
-    });
+    });gs
 };
 EOF
 
 echo "Create the .gitignore file."
-cat << EOF > .androidstudioignore
+cat << EOF > .gitignore
 /node_modules/
 package-lock.json
 EOF
