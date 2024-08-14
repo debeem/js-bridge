@@ -99,7 +99,7 @@ src/main/assets/
  - `index.html`: The JS-Bridge SDK loads `index.html` (which includes the `bundle.js` services).
   
 > [!NOTE]
-> You can use `init_webpack.sh` to initialize a template project, or you can manually add `index.js` and `business.js` files to your existing project's src directory, and an `index.html` file to the `android/assets` directory.
+> <b>You can use `init_webpack.sh` to initialize a template project, or you can manually add `index.js` and `business.js` files to your existing project's src directory, and an `index.html` file to the `android/assets` directory.</b>
   
 <h4 id="section-2-2-2">2.2.2.Business Service Configuration</h4>
 
