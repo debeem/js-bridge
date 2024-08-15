@@ -56,6 +56,7 @@ dependencies {
 
 <h3 id="section-2-2-1">2.2.1.Setup JavaScript Project</h3>
 
+
 Six steps are required to implement JS business logic calls:
 
  - ✅ Step 1: Copy builder scripts. [builder](js-bridge/builder)
@@ -64,6 +65,12 @@ Six steps are required to implement JS business logic calls:
  - ✅ Step 4: JS Building and Packaging. [build_webpack.sh](sample-debeem-wallet/builder/build_webpack.sh) -> [bundle.js](sample-debeem-wallet/js/output/bundle.js)
  - ✅ Step 5: Android Business Implementation and Custom Script Invocation. [MainActivity.kt](sample-debeem-wallet/src/main/java/com/debeem/wallet/npm/sample/MainActivity.kt)
  - ✅ Step 6: Android Compile and Debug. 
+
+> [!NOTE]
+>
+> <b>You can use `init_webpack.sh` to initialize a template project</b>
+> 
+> <b>You can manually add `index.js` and `business.js` files to your existing project's `js/src` directory, and an `index.html` file to the `src/main/assets` directory.</b>
 
 ✅ Step 1: Copy the script directory `builder` from the JS-Bridge SDK directory to the Android project.
 
@@ -97,10 +104,7 @@ src/main/assets/
 
 `src/main/assets/`：
  - `index.html`: The JS-Bridge SDK loads `index.html` (which includes the `bundle.js` services).
-  
-> [!NOTE]
-> <b>You can use `init_webpack.sh` to initialize a template project, or you can manually add `index.js` and `business.js` files to your existing project's `js/src` directory, and an `index.html` file to the `src/main/assets` directory.</b>
-  
+
 <h4 id="section-2-2-2">2.2.2.Business Service Configuration</h4>
 
 ✅ Step 3: Modify the business dependencies in the `src/business.js` file.
