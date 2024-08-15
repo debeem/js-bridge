@@ -238,7 +238,7 @@ Details: [2.2.JavaScript Side](#section-2-2)
 
 <h2 id="section-3-3">3.3.Publishing</h2>
 
-By tagging the project and uploading it to GitHub, JitPack will automatically recognize the tag and package it.
+By tagging the project and uploading it to GitHub, [JitPack](https://jitpack.io/#debeem/js-bridge) will automatically recognize the tag and package it.
 
 ```shell
 ./android/publish_library.sh -v 1.0.0-alpha.15
@@ -259,6 +259,12 @@ Check out our sample app in the [sample-debeem-wallet](sample-debeem-wallet) dir
 You can manually set `node_modules` not to load. Right-click on the `node_modules` directory: Mark Directory as -> Excluded.
 
 ![android studio](images/android_studio_fix_1.png)
+
+2. If the SDK script execution takes a long time and no version is generated. 
+You can check [Jitpack](https://jitpack.io/#debeem/js-bridge). If there are any problems, you can check the logs or manually trigger the compilation.
+
+![jitpack.io](images/jitpack.png)
+
 
 
 
