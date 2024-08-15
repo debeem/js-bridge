@@ -260,10 +260,13 @@ You can manually set `node_modules` not to load. Right-click on the `node_module
 
 ![android studio](images/android_studio_fix_1.png)
 
-2. If the SDK script execution takes a long time and no version is generated. 
+2. If the SDK script execution takes a long time and no version is generated.   
 You can check [Jitpack](https://jitpack.io/#debeem/js-bridge). If there are any problems, you can check the logs or manually trigger the compilation.
 
 ![jitpack.io](images/jitpack.png)
+
+3. Kotlin executing JS code encounters an error similar to: "ReferenceError: ChainStorageService is not defined".   
+You need to use the package name and class name, for example: DebeemWallet.ChainStorageService.
 
 
 

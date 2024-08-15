@@ -144,13 +144,35 @@ class MainActivity : AppCompatActivity() {
 
                 // custom script
                 val label = "custom_test"
+//                val script = """
+//                (function(){
+//                    const execute = async () => {
+//                            try {
+//                                const walletAccount = new DebeemWallet.WalletAccount();
+//                                const result = await walletAccount.queryPairPrice('BTC/USD');
+//                                return { success: true, data: serializable(result) };
+//                            } catch (error) {
+//                                return { success: false, error: error.toString() };
+//                            }
+//                        };
+//
+//                        execute().then(result => {
+//                            window.Android.handleResult(`${label}`, JSON.stringify(result));
+//                        });
+//                })();
+//            """.trimIndent()
+
                 val script = """
                 (function(){
                     const execute = async () => {
                             try {
-                                const walletAccount = new DebeemWallet.WalletAccount();
-                                const result = await walletAccount.queryPairPrice('BTC/USD');
-                                return { success: true, data: serializable(result) };
+                                const chainStorageService = new DebeemWallet.ChainStorageService();
+                                await chainStorageService.flushDefault();
+                                
+                                const chainList = await chainStorageService.getAll();
+                                
+                                const result = chainList;
+                                return { success: true, data: result };
                             } catch (error) {
                                 return { success: false, error: error.toString() };
                             }
@@ -161,6 +183,7 @@ class MainActivity : AppCompatActivity() {
                         });
                 })();
             """.trimIndent()
+
 //            Log.d(TAG, "custom script: $script")
                 walletBusiness.customScript(label, script) { result ->
                     Log.e(TAG, "customScript result: $result")
