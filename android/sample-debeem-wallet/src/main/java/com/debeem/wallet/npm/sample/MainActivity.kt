@@ -166,12 +166,11 @@ class MainActivity : AppCompatActivity() {
                 (function(){
                     const execute = async () => {
                             try {
-                                const chainStorageService = new DebeemWallet.ChainStorageService();
-                                await chainStorageService.flushDefault();
+                                const walletObject = DebeemId.EtherWallet.createWalletFromMnemonic( `olympic cradle tragic crucial exit annual silly cloth scale fine gesture ancient` );
+                                const walletStorage = new DebeemWallet.WalletStorageService('');
+			                    const itemKey = walletStorage.getKeyByItem( walletObject );
                                 
-                                const chainList = await chainStorageService.getAll();
-                                
-                                const result = chainList;
+                                const result = itemKey;
                                 return { success: true, data: result };
                             } catch (error) {
                                 return { success: false, error: error.toString() };
