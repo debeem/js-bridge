@@ -162,15 +162,55 @@ class MainActivity : AppCompatActivity() {
 //                })();
 //            """.trimIndent()
 
+//                val script = """
+//                (function(){
+//                    const execute = async () => {
+//                            try {
+//                                const walletName = `MyWalletTestByJimmy`;
+//                                const chainId = 1;
+//                                const pinCode = '111111'
+//                                const walletObject = DebeemId.EtherWallet.createWalletFromMnemonic( `olympic cradle tragic crucial exit annual silly cloth scale fine gesture ancient` );
+//
+//                                const toBeCreatedWalletItem = {
+//                                    ...walletObject,
+//                                    name : walletName,
+//                                    chainId : chainId,
+//                                    pinCode : ``
+//                                };
+//                                const created = await DebeemWallet.initWalletAsync( toBeCreatedWalletItem, pinCode, true );
+//
+//                                const walletStorage = new DebeemWallet.WalletStorageService( pinCode );
+//
+//                                const itemKey = walletStorage.getKeyByItem( walletObject );
+//
+//                                const value = await walletStorage.get( itemKey );
+//
+//                                const result = value;
+//                                return { success: true, data: result };
+//                            } catch (error) {
+//                                return { success: false, error: error.toString() };
+//                            }
+//                        };
+//
+//                        execute().then(result => {
+//                            window.Android.handleResult(`${label}`, JSON.stringify(result));
+//                        });
+//                })();
+//            """.trimIndent()
+
                 val script = """
                 (function(){
                     const execute = async () => {
                             try {
+                                const pinCode = '111111'
                                 const walletObject = DebeemId.EtherWallet.createWalletFromMnemonic( `olympic cradle tragic crucial exit annual silly cloth scale fine gesture ancient` );
-                                const walletStorage = new DebeemWallet.WalletStorageService('');
-			                    const itemKey = walletStorage.getKeyByItem( walletObject );
-                                
-                                const result = itemKey;
+                                const walletStorage = new DebeemWallet.WalletStorageService( pinCode );
+
+                                const itemKey = walletStorage.getKeyByItem( walletObject );
+
+                                const value = await walletStorage.get( itemKey );
+
+                                const result = value;
                                 return { success: true, data: result };
                             } catch (error) {
                                 return { success: false, error: error.toString() };
