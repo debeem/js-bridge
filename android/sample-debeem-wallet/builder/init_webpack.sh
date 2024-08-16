@@ -99,6 +99,8 @@ window.initialize = (initialized = true, callback) => {
         window.Android.handleResult("initialize", JSON.stringify(result));
     });
 };
+
+
 EOF
 
 echo "Create the .gitignore file."

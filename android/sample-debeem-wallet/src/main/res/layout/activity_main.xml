@@ -24,22 +24,77 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <TextView
-            android:id="@+id/js_init"
-            android:padding="16dp"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:text="JS未初始化"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/js_result_tv"
-            android:padding="16dp"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/js_init"
+                    android:padding="16dp"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:text="JS未初始化"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+
+                <Button
+                    android:layout_marginStart="12dp"
+                    android:id="@+id/getCurrentChain"
+                    android:enabled="false"
+                    android:text="全局方法(getCurrentChain)"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <Button
+                    android:layout_marginStart="12dp"
+                    android:id="@+id/nativeTokenAddress"
+                    android:enabled="false"
+                    android:text="类属性(nativeTokenAddress)"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <Button
+                    android:layout_marginStart="12dp"
+                    android:id="@+id/queryPairPrice"
+                    android:enabled="false"
+                    android:text="类方法获取数据BTC/USD(queryPairPrice)"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <Button
+                    android:layout_marginStart="12dp"
+                    android:id="@+id/initWalletAsync"
+                    android:enabled="false"
+                    android:text="创建初始化钱包(initWalletAsync)"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <Button
+                    android:layout_marginStart="12dp"
+                    android:id="@+id/walletStorage"
+                    android:enabled="false"
+                    android:text="读取钱包数据(walletStorage)"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/js_result_tv"
+                    android:padding="16dp"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
 
     </LinearLayout>
 
@@ -50,6 +105,7 @@
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="@dimen/fab_margin"
         android:layout_marginBottom="16dp"
+        android:visibility="gone"
         app:srcCompat="@android:drawable/ic_dialog_info" />
 
 </FrameLayout>

@@ -34,7 +34,16 @@ class MainActivity : AppCompatActivity() {
         walletBusiness = WalletBusiness(this) {
 
             runOnUiThread {
-                binding.jsInit.text = if (it) "JS初始化完成" else "JS未初始化"
+                binding.jsInit.text = if (it) {
+                    binding.getCurrentChain.isEnabled = true
+                    binding.nativeTokenAddress.isEnabled = true
+                    binding.queryPairPrice.isEnabled = true
+                    binding.initWalletAsync.isEnabled = true
+                    binding.walletStorage.isEnabled = true
+                    "JS初始化完成"
+                }
+                else
+                    "JS未初始化"
             }
         }
 
@@ -42,8 +51,202 @@ class MainActivity : AppCompatActivity() {
             Snackbar.make(view, "请求数据中...", Snackbar.LENGTH_LONG).setAction("Action", null)
                 .show()
 
-            testNpmServiceAsync()
+//            testNpmServiceAsync()
 //            testNpmServiceSync()
+        }
+
+        getCurrentChainView()
+        nativeTokenAddressView()
+        queryPairPriceView()
+        initWalletAsyncView()
+        walletStorageView()
+    }
+
+    private fun getCurrentChainView() {
+        binding.getCurrentChain.setOnClickListener {
+            binding.jsResultTv.text = "loading..."
+            CoroutineScope(Dispatchers.Main).launch {
+                val label = "custom_test_get_chain"
+                val script = """
+                (function(){
+                    const execute = async () => {
+                            try {
+                                const result = DebeemWallet.getCurrentChain();
+                                return { success: true, data: result };
+                            } catch (error) {
+                                return { success: false, error: error.toString() };
+                            }
+                        };
+
+                        execute().then(result => {
+                            window.Android.handleResult(`${label}`, JSON.stringify(result));
+                        });
+                })();
+            """.trimIndent()
+
+                walletBusiness.customScript(label, script) { result ->
+                    Log.e(TAG, "customScript result: $result")
+
+                    runOnUiThread {
+                        binding.jsResultTv.text = result
+                    }
+                }
+            }
+        }
+    }
+
+    private fun nativeTokenAddressView() {
+        binding.nativeTokenAddress.setOnClickListener {
+            binding.jsResultTv.text = "loading..."
+            CoroutineScope(Dispatchers.Main).launch {
+                val label = "custom_test_token_address"
+                val script = """
+                (function(){
+                    const execute = async () => {
+                            try {
+                                const result = await new DebeemWallet.TokenService().nativeTokenAddress;
+                                return { success: true, data: result };
+                            } catch (error) {
+                                return { success: false, error: error.toString() };
+                            }
+                        };
+
+                        execute().then(result => {
+                            window.Android.handleResult(`${label}`, JSON.stringify(result));
+                        });
+                })();
+            """.trimIndent()
+
+                walletBusiness.customScript(label, script) { result ->
+                    Log.e(TAG, "customScript result: $result")
+
+                    runOnUiThread {
+                        binding.jsResultTv.text = result
+                    }
+                }
+            }
+        }
+    }
+
+    private fun queryPairPriceView() {
+        binding.queryPairPrice.setOnClickListener {
+            binding.jsResultTv.text = "loading..."
+            CoroutineScope(Dispatchers.Main).launch {
+                val label = "custom_test_1"
+                val script = """
+                (function(){
+                    const execute = async () => {
+                            try {
+                                const priceObj = await new DebeemWallet.WalletAccount().queryPairPrice( `BTC/USD` );
+                                const result = priceObj;
+                                return { success: true, data: serializable(result) };
+                            } catch (error) {
+                                return { success: false, error: error.toString() };
+                            }
+                        };
+
+                        execute().then(result => {
+                            window.Android.handleResult(`${label}`, JSON.stringify(result));
+                        });
+                })();
+            """.trimIndent()
+
+                walletBusiness.customScript(label, script) { result ->
+                    Log.e(TAG, "customScript result: $result")
+
+                    runOnUiThread {
+                        binding.jsResultTv.text = result
+                    }
+                }
+            }
+        }
+    }
+
+    private fun initWalletAsyncView() {
+        binding.initWalletAsync.setOnClickListener {
+            binding.jsResultTv.text = "loading..."
+            CoroutineScope(Dispatchers.Main).launch {
+                val label = "custom_test_2"
+                val script = """
+                (function(){
+                    const execute = async () => {
+                            try {
+                                const walletName = `MyWalletTestByJimmy`;
+                                const chainId = 1;
+                                const pinCode = '111111'
+                                const walletObject = DebeemId.EtherWallet.createWalletFromMnemonic( `olympic cradle tragic crucial exit annual silly cloth scale fine gesture ancient` );
+
+                                const toBeCreatedWalletItem = {
+                                    ...walletObject,
+                                    name : walletName,
+                                    chainId : chainId,
+                                    pinCode : ``
+                                };
+                                const created = await DebeemWallet.initWalletAsync( toBeCreatedWalletItem, pinCode, true );
+                                
+                                const result = created;
+                                return { success: true, data: result };
+                            } catch (error) {
+                                return { success: false, error: error.toString() };
+                            }
+                        };
+
+                        execute().then(result => {
+                            window.Android.handleResult(`${label}`, JSON.stringify(result));
+                        });
+                })();
+            """.trimIndent()
+
+                walletBusiness.customScript(label, script) { result ->
+                    Log.e(TAG, "customScript result: $result")
+
+                    runOnUiThread {
+                        binding.jsResultTv.text = result
+                    }
+                }
+            }
+        }
+    }
+
+    private fun walletStorageView() {
+        binding.walletStorage.setOnClickListener {
+            binding.jsResultTv.text = "loading..."
+            CoroutineScope(Dispatchers.Main).launch {
+                val label = "custom_test_3"
+                val script = """
+                (function(){
+                    const execute = async () => {
+                            try {
+                                const pinCode = '111111'
+                                const walletObject = DebeemId.EtherWallet.createWalletFromMnemonic( `olympic cradle tragic crucial exit annual silly cloth scale fine gesture ancient` );
+
+                                const walletStorage = new DebeemWallet.WalletStorageService( pinCode );
+
+                                const itemKey = walletStorage.getKeyByItem( walletObject );
+
+                                const value = await walletStorage.get( itemKey );
+                                
+                                const result = value;
+                                return { success: true, data: result };
+                            } catch (error) {
+                                return { success: false, error: error.toString() };
+                            }
+                        };
+
+                        execute().then(result => {
+                            window.Android.handleResult(`${label}`, JSON.stringify(result));
+                        });
+                })();
+            """.trimIndent()
+
+                walletBusiness.customScript(label, script) { result ->
+                    Log.e(TAG, "customScript result: $result")
+
+                    runOnUiThread {
+                        binding.jsResultTv.text = result
+                    }
+                }
+            }
         }
     }
 
@@ -211,6 +414,7 @@ class MainActivity : AppCompatActivity() {
                                 const value = await walletStorage.get( itemKey );
 
                                 const result = value;
+                                
                                 return { success: true, data: result };
                             } catch (error) {
                                 return { success: false, error: error.toString() };
@@ -235,43 +439,7 @@ class MainActivity : AppCompatActivity() {
             } catch (e: Exception) {
                 println("Error: ${e.message}")
             }
-
-
         }
-
-        // 调用带各种参数和回调的 JavaScript 方法
-//        npmServiceSDK.callJsFunctionAsync(
-//            "callJsWithVariousParams",
-//            42,
-//            3.14f,
-//            "Hello from Kotlin",
-//            mapOf("key1" to "value1", "key2" to 2),
-//            listOf("item1", "item2", "item3")
-//        ) { result ->
-//            Log.d("MainActivity", "000 Received result from JS: $result")
-//        }
-
-        // 异步
-//        npmServiceSDK.callJsFunctionAsync("callJsWithCallback", "000 hello") { result ->
-//            Log.d("MainActivity", "000 Received result from JS: $result")
-//
-//            runOnUiThread {
-//                binding.jsResultTv.text = result
-//            }
-//        }
-
-//        npmServiceSDK.callJsFunctionAsync("queryPairPrice", "BTC/USD") { result ->
-//            Log.d("queryPairPrice", "$result")
-//
-//            runOnUiThread {
-//                binding.jsResultTv.text = result
-//            }
-//        }
-//
-//        // 同步
-//        npmServiceSDK.callJsFunctionSync("getCurrentChain") { result ->
-//            Log.d("MainActivity", "result: $result")
-//        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
