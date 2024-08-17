@@ -83,6 +83,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
+                <Button
+                    android:layout_marginStart="12dp"
+                    android:id="@+id/clearJSData"
+                    android:enabled="false"
+                    android:text="清除钱包数据"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
                 <TextView
                     android:id="@+id/js_result_tv"
                     android:padding="16dp"

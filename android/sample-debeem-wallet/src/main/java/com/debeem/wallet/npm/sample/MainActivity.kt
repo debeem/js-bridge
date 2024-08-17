@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    lateinit var walletBusiness: WalletBusiness
+    private lateinit var walletBusiness: WalletBusiness
 
     companion object {
         const val TAG = "MainActivity"
@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
                     binding.queryPairPrice.isEnabled = true
                     binding.initWalletAsync.isEnabled = true
                     binding.walletStorage.isEnabled = true
+                    binding.clearJSData.isEnabled = true
                     "JS初始化完成"
                 }
                 else
@@ -60,6 +61,49 @@ class MainActivity : AppCompatActivity() {
         queryPairPriceView()
         initWalletAsyncView()
         walletStorageView()
+        clearView()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        walletBusiness.dispose()
+    }
+
+    private fun clearView() {
+        binding.clearJSData.setOnClickListener {
+            binding.jsResultTv.text = "clearing..."
+            CoroutineScope(Dispatchers.Main).launch {
+                val label = "custom_test_clear"
+                val script = """
+                (function(){
+                        const execute = async () => {
+                            try {
+                                const pinCode = '111111'
+                                const walletStorage = new DebeemWallet.WalletStorageService( pinCode );
+                                
+                                const result = await walletStorage.clear();
+                                
+                                return { success: true, data: result };
+                            } catch (error) {
+                                return { success: false, error: error.toString() };
+                            }
+                        };
+                    
+                        execute().then(result => {
+                            window.Android.handleResult(`${label}`, JSON.stringify(result));
+                        });
+                    })();
+            """.trimIndent()
+
+                walletBusiness.customScript(label, script) { result ->
+                    Log.e(TAG, "customScript result: $result")
+
+                    runOnUiThread {
+                        binding.jsResultTv.text = result
+                    }
+                }
+            }
+        }
     }
 
     private fun getCurrentChainView() {

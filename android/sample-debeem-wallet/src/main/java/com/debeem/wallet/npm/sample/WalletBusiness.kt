@@ -58,12 +58,8 @@ class WalletBusiness(context: Context, callback: (Boolean) -> Unit) {
         }
     }
 
-    suspend fun clearCache(): Boolean {
-//        val result = npmServiceSDK.evaluateJavascriptAsync("window.clearWalletCache()")
-//        val jsonResult = JSONObject(result)
-//        return jsonResult.getBoolean("success")
-        return false
+    fun dispose() {
+        npmServiceSDK.dispose()
     }
-
 
 }
