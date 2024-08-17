@@ -63,7 +63,7 @@
                     android:layout_marginStart="12dp"
                     android:id="@+id/queryPairPrice"
                     android:enabled="false"
-                    android:text="类方法获取数据BTC/USD(queryPairPrice)"
+                    android:text="类方法(queryPairPrice(`BTC/USD`))"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
