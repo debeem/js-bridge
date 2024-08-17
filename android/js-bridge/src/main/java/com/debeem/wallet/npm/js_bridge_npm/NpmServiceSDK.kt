@@ -61,17 +61,12 @@ class NpmServiceSDK(private val context: Context, private val callback: (Boolean
         }
     }
 
-    // JavaScript 接口类
     @JavascriptInterface
     fun handleResult(functionName: String, result: String) {
-        // 处理从 JS 接收的数据
         Log.d("$TAG:handleResult", "Received from JS: $functionName : $result")
         callbackMap.remove(functionName)?.invoke(result)
     }
 
-    // 异步调用
-    // 使用场景：调用 js 方法不能立即返回结果，需要执行一段时间才能完成任务。
-    // 例如网络请求等，这就需要完成异步操作后主动调用原生端的回调函数（onJsCallback）
     fun callJsFunctionAsync(
         packageName: String = "",
         functionName: String,
@@ -114,10 +109,6 @@ class NpmServiceSDK(private val context: Context, private val callback: (Boolean
         webView?.evaluateJavascript(script, null)
     }
 
-
-    // 同步调用
-    // 所谓的“同步”是指等待JavaScript的执行结果，而不是阻塞主线程
-    // 使用场景：调用 js 方法可以立即返回结果（result）
     fun callJsFunctionSync(
         packageName: String,
         functionName: String,
@@ -149,7 +140,6 @@ class NpmServiceSDK(private val context: Context, private val callback: (Boolean
 
 //        Log.d(TAG, "callbackScript: $callbackScript, jsArgs: $jsArgs")
 
-        // 同步不需要传递 callbackScript，异步需要传递
         val script = when {
             packageName.isEmpty() -> {
                 when {
@@ -207,7 +197,6 @@ class NpmServiceSDK(private val context: Context, private val callback: (Boolean
 
     fun dispose() {
         clearWebView()
-        // 清理其他资源...
     }
 
     private fun clearWebView() {

@@ -38,7 +38,7 @@
                     android:padding="16dp"
                     android:textColor="@color/black"
                     android:textSize="18sp"
-                    android:text="JS未初始化"
+                    android:text="JS Uninitialized"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -47,7 +47,7 @@
                     android:layout_marginStart="12dp"
                     android:id="@+id/getCurrentChain"
                     android:enabled="false"
-                    android:text="全局方法(getCurrentChain)"
+                    android:text="GlobalMethod(getCurrentChain)"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -55,7 +55,7 @@
                     android:layout_marginStart="12dp"
                     android:id="@+id/nativeTokenAddress"
                     android:enabled="false"
-                    android:text="类属性(nativeTokenAddress)"
+                    android:text="ClassAttribute(nativeTokenAddress)"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -63,7 +63,7 @@
                     android:layout_marginStart="12dp"
                     android:id="@+id/queryPairPrice"
                     android:enabled="false"
-                    android:text="类方法(queryPairPrice(`BTC/USD`))"
+                    android:text="ClassMethods(queryPairPrice(BTC/USD))"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -71,7 +71,7 @@
                     android:layout_marginStart="12dp"
                     android:id="@+id/initWalletAsync"
                     android:enabled="false"
-                    android:text="创建初始化钱包(initWalletAsync)"
+                    android:text="InitWallet(initWalletAsync)"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -79,7 +79,7 @@
                     android:layout_marginStart="12dp"
                     android:id="@+id/walletStorage"
                     android:enabled="false"
-                    android:text="读取钱包数据(walletStorage)"
+                    android:text="ReadWalletData(walletStorage)"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -87,7 +87,7 @@
                     android:layout_marginStart="12dp"
                     android:id="@+id/clearJSData"
                     android:enabled="false"
-                    android:text="清除钱包数据"
+                    android:text="Clear Wallet Data"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
