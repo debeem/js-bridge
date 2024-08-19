@@ -3,4 +3,4 @@ jdk:
 before_install:
   - cd android
 install:
-  - ./gradlew clean build publishToMavenLocal -x testDebugUnitTest --info --stacktrace
+  - ./gradlew clean build publishToMavenLocal -x test -x *Test -x *AndroidTest --info --stacktrace
