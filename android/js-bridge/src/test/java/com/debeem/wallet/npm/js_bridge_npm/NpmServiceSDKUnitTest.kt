@@ -122,7 +122,7 @@ class NpmServiceSDKTest {
     fun testCreateCallJsFunctionAsync() {
         sdk.setInitedForTesting(true)
         sdk.createCallJsFunctionAsync("testPackage", "TestClass", listOf("arg1"), "testMethod", listOf("arg2")) {}
-        verify(mockWebView).evaluateJavascript(contains("createAndCallMethod"), isNull())
+        verify(mockWebView).evaluateJavascript(contains("createAndCallMethod"), null)
     }
 
     @Test
