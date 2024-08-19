@@ -3,7 +3,6 @@ pluginManagement {
         google()
         mavenCentral()
         gradlePluginPortal()
-        // 发布依赖
         maven { url "https://jitpack.io" }
     }
 }
@@ -12,7 +11,6 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        // 使用依赖
         maven { url "https://jitpack.io" }
     }
 }
