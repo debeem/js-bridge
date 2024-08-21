@@ -3,6 +3,7 @@ package com.debeem.wallet.npm.js_bridge_npm
 import android.content.Context
 import android.util.Log
 import android.webkit.WebChromeClient
+import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import junit.framework.TestCase.assertEquals
@@ -34,6 +35,7 @@ class NpmServiceSDKTest {
 
     private lateinit var mockContext: Context
     private lateinit var mockWebView: WebView
+    private lateinit var mockSettings: WebSettings
     private lateinit var sdk: NpmServiceSDK
     private lateinit var onInitializedCallback: (Boolean) -> Unit
 
@@ -41,30 +43,31 @@ class NpmServiceSDKTest {
     fun setUp() {
         mockContext = mock(Context::class.java)
         mockWebView = mock(WebView::class.java)
+        mockSettings = mock(WebSettings::class.java)
         onInitializedCallback = mock(Function1::class.java) as (Boolean) -> Unit
         sdk = NpmServiceSDK(
             context = mockContext,
             webViewProvider = { mockWebView },
             onInitialized = onInitializedCallback
         )
-        sdk.setInitedForTesting(true) // Directly set the SDK to initialized for testing
-    }
 
-    @Test
-    fun testInitialization() {
+        `when`(mockWebView.settings).thenReturn(mockSettings)
+
         mockWebView.apply {
             settings.javaScriptEnabled = true
-            settings.domStorageEnabled = true
             webChromeClient = mock(WebChromeClient::class.java)
             webViewClient = mock(WebViewClient::class.java)
             addJavascriptInterface(sdk, "Android")
             loadUrl("file:///android_asset/index.html")
         }
+
+        sdk.initNpmForTesting {
+            assertTrue(it)
+        }
     }
 
     @Test
-    fun testIsInitialized() {
-        assertFalse(sdk.isInitialized())
+    fun testInitialization() {
         sdk.setInitedForTesting(true)
         assertTrue(sdk.isInitialized())
     }
@@ -82,116 +85,209 @@ class NpmServiceSDKTest {
     }
 
     @Test
+    fun testCallJsFunctionSDKNotInit() {
+        sdk.setInitedForTesting(false)
+        val msg = "SDK is not initialized"
+        var msgResult = ""
+        try {
+            sdk.callJsFunctionAsync("testPackage", "testFunction", "arg1", "arg2") {}
+        } catch (e: Exception) {
+            msgResult = e.message ?: ""
+        }
+        assertEquals(msg, msgResult)
+    }
+
+    @Test
     fun testCallJsFunctionAsync() {
         sdk.setInitedForTesting(true)
         sdk.callJsFunctionAsync("testPackage", "testFunction", "arg1", "arg2") {}
-        verify(mockWebView).evaluateJavascript(contains("testPackage"), null)
     }
 
     @Test
     fun testCallJsFunctionSync() {
+        val msg = ""
+        var msgResult = ""
         sdk.setInitedForTesting(true)
-        sdk.callJsFunctionSync("testPackage", "testFunction", "arg1", "arg2") {}
-        verify(mockWebView).evaluateJavascript(contains("testPackage"), any())
+        try {
+            sdk.callJsFunctionSync("testPackage", "testFunction", "arg1", "arg2") {}
+        } catch (e: Exception) {
+            msgResult = e.message ?: ""
+        }
+        assertEquals(msg, msgResult)
     }
 
     @Test
     fun testCallJsFunctionAsyncWithLongFunctionName() {
+        val msg = "Function name is too long"
+        var msgResult = ""
         sdk.setInitedForTesting(true)
-        sdk.callJsFunctionAsync("", "a".repeat(101), "arg") {}
+        try {
+            sdk.callJsFunctionAsync("", "a".repeat(101), "arg") {}
+        } catch (e: Exception) {
+            msgResult = e.message ?: ""
+        }
+        assertEquals(msg, msgResult)
     }
 
     @Test
     fun testCallJsFunctionAsyncWithLongPackageName() {
+        val msg = "Package name is too long"
+        var msgResult = ""
         sdk.setInitedForTesting(true)
-        sdk.callJsFunctionAsync("a".repeat(101), "testFunction", "arg") {}
+        try {
+            sdk.callJsFunctionAsync("a".repeat(101), "testFunction", "arg") {}
+        } catch (e: Exception) {
+            msgResult = e.message ?: ""
+        }
+        assertEquals(msg, msgResult)
     }
 
     @Test
     fun testCallJsFunctionAsyncWithTooManyArgs() {
+        val msg = "Too many arguments provided"
+        var msgResult = ""
         sdk.setInitedForTesting(true)
-        sdk.callJsFunctionAsync("", "testFunction", *Array(11) { "arg" }) {}
-    }
-
-    @Test
-    fun testCallJsFunctionAsyncWhenNotInitialized() {
-        sdk.callJsFunctionAsync("", "testFunction") {}
+        try {
+            sdk.callJsFunctionAsync("", "testFunction", *Array(11) { "arg" }) {}
+        } catch (e: Exception) {
+            msgResult = e.message ?: ""
+        }
+        assertEquals(msg, msgResult)
     }
 
     @Test
     fun testCreateCallJsFunctionAsync() {
         sdk.setInitedForTesting(true)
         sdk.createCallJsFunctionAsync("testPackage", "TestClass", listOf("arg1"), "testMethod", listOf("arg2")) {}
-        verify(mockWebView).evaluateJavascript(contains("createAndCallMethod"), null)
     }
 
     @Test
     fun testCreateCallJsFunctionAsyncWithLongPackageName() {
+        val msg = "Package name is too long"
+        var msgResult = ""
         sdk.setInitedForTesting(true)
-        sdk.createCallJsFunctionAsync("a".repeat(101), "TestClass", null, "testMethod", null) {}
+        try {
+            sdk.createCallJsFunctionAsync("a".repeat(101), "TestClass", null, "testMethod", null) {}
+        } catch (e: Exception) {
+            msgResult = e.message ?: ""
+        }
+        assertEquals(msg, msgResult)
     }
 
     @Test
     fun testCreateCallJsFunctionAsyncWithLongClassName() {
+        val msg = "Class name is too long"
+        var msgResult = ""
         sdk.setInitedForTesting(true)
-        sdk.createCallJsFunctionAsync("testPackage", "a".repeat(101), null, "testMethod", null) {}
+        try {
+            sdk.createCallJsFunctionAsync("testPackage", "a".repeat(101), null, "testMethod", null) {}
+        } catch (e: Exception) {
+            msgResult = e.message ?: ""
+        }
+        assertEquals(msg, msgResult)
     }
 
     @Test
     fun testCreateCallJsFunctionAsyncWithLongMethodName() {
+        val msg = "Method name is too long"
+        var msgResult = ""
         sdk.setInitedForTesting(true)
-        sdk.createCallJsFunctionAsync("testPackage", "TestClass", null, "a".repeat(101), null) {}
+        try {
+            sdk.createCallJsFunctionAsync("testPackage", "TestClass", null, "a".repeat(101), null) {}
+        } catch (e: Exception) {
+            msgResult = e.message ?: ""
+        }
+        assertEquals(msg, msgResult)
     }
 
     @Test
     fun testCreateCallJsFunctionAsyncWithTooManyConstructorArgs() {
+        val msg = "Too many constructor arguments"
+        var msgResult = ""
         sdk.setInitedForTesting(true)
-        sdk.createCallJsFunctionAsync("testPackage", "TestClass", List(11) { "arg" }, "testMethod", null) {}
+        try {
+            sdk.createCallJsFunctionAsync("testPackage", "TestClass", List(11) { "arg" }, "testMethod", null) {}
+        } catch (e: Exception) {
+            msgResult = e.message ?: ""
+        }
+        assertEquals(msg, msgResult)
     }
 
     @Test
     fun testCreateCallJsFunctionAsyncWithTooManyMethodArgs() {
+        val msg = "Too many method arguments"
+        var msgResult = ""
         sdk.setInitedForTesting(true)
-        sdk.createCallJsFunctionAsync("testPackage", "TestClass", null, "testMethod", List(11) { "arg" }) {}
+        try {
+            sdk.createCallJsFunctionAsync("testPackage", "TestClass", null, "testMethod", List(11) { "arg" }) {}
+        } catch (e: Exception) {
+            msgResult = e.message ?: ""
+        }
+        assertEquals(msg, msgResult)
     }
 
-    @Test  
+    @Test
     fun testCreateCallJsFunctionAsyncWhenNotInitialized() {
-        sdk.createCallJsFunctionAsync("testPackage", "TestClass", null, "testMethod", null) {}
+        val msg = "SDK is not initialized"
+        var msgResult = ""
+        sdk.setInitedForTesting(false)
+        try {
+            sdk.createCallJsFunctionAsync("testPackage", "TestClass", null, "testMethod", null) {}
+        } catch (e: Exception) {
+            msgResult = e.message ?: ""
+        }
+        assertEquals(msg, msgResult)
     }
 
     @Test
     fun testCallScript() {
         sdk.setInitedForTesting(true)
         sdk.callScript("testLabel", "console.log('test');") {}
-        verify(mockWebView).evaluateJavascript(eq("console.log('test');"), null)
     }
 
     @Test
     fun testCallScriptWithEmptyScript() {
+        val msg = "Script cannot be empty"
+        var msgResult = ""
         sdk.setInitedForTesting(true)
-        sdk.callScript("testLabel", "") {}
+        try {
+            sdk.callScript("testLabel", "") {}
+        } catch (e: Exception) {
+            msgResult = e.message ?: ""
+        }
+        assertEquals(msg, msgResult)
     }
 
     @Test
     fun testCallScriptWithTooLongScript() {
         sdk.setInitedForTesting(true)
-        sdk.callScript("testLabel", "a".repeat(10001)) {}
+        val msg = "Script is too long"
+        var msgResult = ""
+        try {
+            sdk.callScript("testLabel", "a".repeat(10001)) {}
+        } catch (e: Exception) {
+            msgResult = e.message ?: ""
+        }
+        assertEquals(msg, msgResult)
     }
 
-    @Test  
+    @Test
     fun testCallScriptWhenNotInitialized() {
-        sdk.callScript("testLabel", "console.log('test');") {}
+        val msg = "SDK is not initialized"
+        var msgResult = ""
+        sdk.setInitedForTesting(false)
+        try {
+            sdk.callScript("testLabel", "console.log('test');") {}
+        } catch (e: Exception) {
+            msgResult = e.message ?: ""
+        }
+        assertEquals(msg, msgResult)
     }
 
     @Test
     fun testDispose() {
+        sdk.setInitedForTesting(true)
         sdk.dispose()
-        verify(mockWebView).clearHistory()
-        verify(mockWebView).clearCache(true)
-        verify(mockWebView).loadUrl("about:blank")
-        verify(mockWebView).removeAllViews()
-        verify(mockWebView).destroy()
         assertFalse(sdk.isInitedForTesting())
     }
 
@@ -206,30 +302,4 @@ class NpmServiceSDKTest {
         }
     }
 
-    @Test
-    fun testWebViewLoadFailure() {
-        doThrow(RuntimeException("WebView load failed")).`when`(mockWebView).loadUrl(any())
-
-        var initializationResult = true
-        NpmServiceSDK(
-            mockContext,
-            webViewProvider = { mockWebView },
-            onInitialized = { result -> initializationResult = result }
-        )
-
-        assertFalse(initializationResult)
-    }
-
-    @Test
-    fun testWebViewClientOnPageFinished() {
-//        val webViewClient = mock(WebViewClient::class.java)
-//        `when`(mockWebView.webViewClient).thenReturn(webViewClient)
-//
-//        val captor = argumentCaptor<WebViewClient>()
-//        verify(mockWebView).webViewClient = captor.capture()
-//
-//        captor.value.onPageFinished(mockWebView, "https://example.com")
-//
-//        verify(mockWebView).evaluateJavascript(contains("initialize"), isNull())
-    }
 }

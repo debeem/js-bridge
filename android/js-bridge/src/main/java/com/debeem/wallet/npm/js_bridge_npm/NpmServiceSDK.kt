@@ -34,8 +34,10 @@ class NpmServiceSDK(
 ) {
     // WebView instance used to load and execute JavaScript
     private var webView: WebView? = null
+
     // Flag to indicate if the SDK has been initialized
     private var inited = AtomicBoolean(false)
+
     // Map to store callbacks for JavaScript function calls
     private val callbackMap = mutableMapOf<String, ((String) -> Unit)?>()
 
@@ -88,7 +90,7 @@ class NpmServiceSDK(
      * @param callback Function to be called with the result of the initialization.
      */
     private fun initNpm(initialized: Boolean = false, callback: (Boolean) -> Unit) {
-        callJsFunctionAsync(packageName = "", functionName = "initialize", initialized) {
+        callJsFunctionAsync(packageName = "", functionName = "initialize", initialized, needCheckInit = false) {
             try {
                 Log.d(TAG, "initNpm: $it")
                 val jsonResult = JSONObject(it)
@@ -134,12 +136,15 @@ class NpmServiceSDK(
         packageName: String = "",
         functionName: String,
         vararg args: Any,
+        needCheckInit: Boolean = true,
         callback: (String) -> Unit,
     ) {
         require(functionName.length <= MAX_FUNCTION_NAME_LENGTH) { "Function name is too long" }
         require(packageName.length <= MAX_PACKAGE_NAME_LENGTH) { "Package name is too long" }
         require(args.size <= MAX_ARGS_COUNT) { "Too many arguments provided" }
-        check(isInitialized()) { "SDK is not initialized" }
+        if (needCheckInit) {
+            check(isInitialized()) { "SDK is not initialized" }
+        }
 
         val key = if (packageName.isEmpty()) functionName else "$packageName.$functionName"
         callbackMap[key] = callback
@@ -356,5 +361,13 @@ class NpmServiceSDK(
     @VisibleForTesting
     internal fun isInitedForTesting(): Boolean {
         return inited.get()
+    }
+
+    @VisibleForTesting
+    internal fun initNpmForTesting(initialized: Boolean = false, callback: (Boolean) -> Unit) {
+        initNpm(initialized) {
+            inited.set(it)
+            callback(it)
+        }
     }
 }
