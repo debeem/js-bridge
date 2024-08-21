@@ -9,7 +9,9 @@ class WalletBusiness(context: Context, callback: (Boolean) -> Unit) {
     private var npmServiceSDK: NpmServiceSDK
 
     init {
-        npmServiceSDK = NpmServiceSDK(context, callback)
+        npmServiceSDK = NpmServiceSDK(context) {
+            callback(it)
+        }
     }
 
     fun initializeWallet(initDB: Boolean = true, callback: (Boolean) -> Unit) {
@@ -53,7 +55,7 @@ class WalletBusiness(context: Context, callback: (Boolean) -> Unit) {
     }
 
     fun customScript(label: String, script: String, callback: (String) -> Unit) {
-        npmServiceSDK.customScript(label, script) {
+        npmServiceSDK.callScript(label, script) {
             callback(it)
         }
     }

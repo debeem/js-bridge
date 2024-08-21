@@ -45,6 +45,6 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.7.7'
 
 //    implementation project(':js-bridge')
-    implementation 'com.github.debeem:js-bridge:1.0.0-rc.1'
+    implementation 'com.github.debeem:js-bridge:1.0.0-rc.8'
 
 }
