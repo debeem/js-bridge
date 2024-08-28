@@ -1,4 +1,4 @@
-package com.debeem.wallet.npm.js_bridge_npm
+package com.debeem.wallet.js.bridge
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

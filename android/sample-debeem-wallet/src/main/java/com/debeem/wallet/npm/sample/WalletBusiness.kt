@@ -2,66 +2,26 @@ package com.debeem.wallet.npm.sample
 
 import android.content.Context
 import android.util.Log
-import com.debeem.wallet.npm.js_bridge_npm.NpmServiceSDK
+import com.debeem.wallet.js.bridge.JsBridge
 import org.json.JSONObject
 
 class WalletBusiness(context: Context, callback: (Boolean) -> Unit) {
-    private var npmServiceSDK: NpmServiceSDK
+    private var jsBridge: JsBridge
 
     init {
-        npmServiceSDK = NpmServiceSDK(context) {
-            callback(it)
-        }
-    }
-
-    fun initializeWallet(initDB: Boolean = true, callback: (Boolean) -> Unit) {
-        npmServiceSDK.callJsFunctionAsync("", "initializeWallet", initDB) {
-            Log.d("WalletBusiness", "initializeWallet: $it")
-            val jsonResult = JSONObject(it)
-            Log.d("WalletBusiness", "initializeWallet jsonResult: $jsonResult")
-            val result = jsonResult.getBoolean("success")
-            callback(result)
-        }
-    }
-
-    fun callJsFunctionAsync(
-        packageName: String,
-        functionName: String,
-        vararg args: Any,
-        callback: (String) -> Unit,
-    ) {
-        npmServiceSDK.callJsFunctionAsync(packageName, functionName, *args) {
-            callback(it)
-        }
-    }
-
-    fun createCallJsFunctionAsync(
-        packageName: String,
-        className: String,
-        constructorArgs: List<Any>? = null,
-        methodName: String,
-        methodArgs: List<Any>? = null,
-        callback: (String) -> Unit,
-    ) {
-        npmServiceSDK.createCallJsFunctionAsync(
-            packageName,
-            className,
-            constructorArgs,
-            methodName,
-            methodArgs
-        ) {
+        jsBridge = JsBridge(context) {
             callback(it)
         }
     }
 
     fun customScript(label: String, script: String, callback: (String) -> Unit) {
-        npmServiceSDK.callScript(label, script) {
+        jsBridge.callScript(label, script) {
             callback(it)
         }
     }
 
     fun dispose() {
-        npmServiceSDK.dispose()
+        jsBridge.dispose()
     }
 
 }
